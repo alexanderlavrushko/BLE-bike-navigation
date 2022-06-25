@@ -100,6 +100,11 @@ class BLEBikeAccessory: NSObject {
         let command = encoder.buildFillTriangle(p1, p2, p3, color: color)
         currentData.append(command)
     }
+
+    public func addTimeText(_ timeText: String, color: BikeColor) {
+        let command = encoder.buildTimeText(timeText, color: color)
+        currentData.append(command)
+    }
 }
 
 // MARK: - Private methods

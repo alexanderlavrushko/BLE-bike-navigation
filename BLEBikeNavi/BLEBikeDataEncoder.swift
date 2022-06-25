@@ -52,6 +52,16 @@ class BLEBikeDataEncoder {
         return data
     }
 
+    func buildTimeText(_ timeText: String, color: BikeColor) -> Data {
+        var data = BLEBikeCommand.timeText.data
+        data.append(color.data)
+        if let timeData = timeText.data(using: String.Encoding.utf8) {
+            data.append(timeData)
+        }
+        data.append(UInt8(0))
+        return data
+    }
+
     func decodeBikeInfo(_ data: Data?) -> BikeInfo? {
         guard let data = data else {
             return nil

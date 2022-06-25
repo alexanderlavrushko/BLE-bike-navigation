@@ -14,6 +14,7 @@ enum BLEBikeCommand: UInt8 {
     case drawCircle = 4
     case fillCircle = 5
     case fillTriangle = 6
+    case timeText = 7
 
     var data: Data {
         Data([self.rawValue])

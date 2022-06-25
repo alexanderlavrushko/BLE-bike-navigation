@@ -12,7 +12,7 @@ class MainMenuTableController: UITableViewController {
     private let sections =
         [MenuSection(section: .bluetooth, items: [.bleState, .bleStartStop]),
          MenuSection(section: .displaySettings, items: [.settingZoom, .settingLineWidthScale, .settingColorScheme, .settingUpSource]),
-         MenuSection(section: .otherSettings, items: [.settingGpsSource])]
+         MenuSection(section: .otherSettings, items: [.settingGpsSource, .settingAdditionalData, .settingMapScale])]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +106,8 @@ private extension MainMenuTableController {
         case settingColorScheme
         case settingLineWidthScale
         case settingGpsSource
+        case settingAdditionalData
+        case settingMapScale
 
         var title: String {
             switch self {
@@ -123,6 +125,10 @@ private extension MainMenuTableController {
                 return "Line scale"
             case .settingGpsSource:
                 return "GPS source"
+            case .settingAdditionalData:
+                return "Additional data"
+            case .settingMapScale:
+                return "Map scale"
             }
         }
     }
@@ -193,6 +199,26 @@ private extension MainMenuTableController {
             case .mapViewCenter:
                 return "Center of map view"
             }
+        case .settingAdditionalData:
+            guard let additionalData = Settings.instance?.additionalData else {
+                return "Error"
+            }
+            switch additionalData {
+            case .none:
+                return "None"
+            case .time:
+                return "Time"
+            }
+        case .settingMapScale:
+            guard let mapScale = Settings.instance?.mapScale else {
+                return "Error"
+            }
+            switch mapScale {
+            case .tile256:
+                return "1x"
+            case .tile512:
+                return "2x"
+            }
         }
     }
 
@@ -222,6 +248,12 @@ private extension MainMenuTableController {
             reloadSection(.displaySettings)
         case .settingGpsSource:
             Settings.instance?.switchPositionSource()
+            reloadSection(.otherSettings)
+        case .settingAdditionalData:
+            Settings.instance?.switchAdditionalData()
+            reloadSection(.otherSettings)
+        case .settingMapScale:
+            Settings.instance?.switchMapScale()
             reloadSection(.otherSettings)
         }
     }

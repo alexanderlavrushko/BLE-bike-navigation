@@ -29,9 +29,20 @@ enum SimulatedAccuracy {
     case bad
 }
 
+enum AdditionalData: String {
+    case none
+    case time
+}
+
+enum MapScale: String {
+    case tile256
+    case tile512
+}
+
 protocol SettingsDelegate: AnyObject {
     func settingsDidChange()
     func positionSourceDidChange()
+    func mapLookDidChange()
 }
 
 enum StorageKey: String {
@@ -39,6 +50,8 @@ enum StorageKey: String {
     case metersPerPixel
     case lineWidthScale
     case colorScheme
+    case additionalData
+    case mapScale
 
     var key: String {
         "settings.\(rawValue)"
@@ -88,6 +101,8 @@ class Settings {
     static var defaultLineWidthScale: Double { 2 }
     static var defaultColorScheme: ColorScheme { .dark }
     static var defaultSimulatedAccuracy: SimulatedAccuracy { .good }
+    static var defaultAdditionalData: AdditionalData { .time }
+    static var defaultMapScale: MapScale { .tile512 }
 
     // settings properties
     var positionSource = defaultPositionSource {
@@ -120,6 +135,18 @@ class Settings {
         }
     }
     var simulatedAccuracy = defaultSimulatedAccuracy
+    var additionalData = defaultAdditionalData {
+        didSet {
+            StorageKey.additionalData.writeString(additionalData.rawValue)
+            delegate?.settingsDidChange()
+        }
+    }
+    var mapScale = defaultMapScale {
+        didSet {
+            StorageKey.mapScale.writeString(mapScale.rawValue)
+            delegate?.mapLookDidChange()
+        }
+    }
 
     // methods
     private init() {
@@ -134,6 +161,12 @@ class Settings {
         }
         if let storedColorScheme = ColorScheme(rawValue: StorageKey.colorScheme.readString() ?? "") {
             colorScheme = storedColorScheme
+        }
+        if let storedAdditionalData = AdditionalData(rawValue: StorageKey.additionalData.readString() ?? "") {
+            additionalData = storedAdditionalData
+        }
+        if let storedMapScale = MapScale(rawValue: StorageKey.mapScale.readString() ?? "") {
+            mapScale = storedMapScale
         }
     }
 
@@ -194,6 +227,22 @@ class Settings {
             colorScheme = .light
         } else {
             colorScheme = .dark
+        }
+    }
+
+    func switchAdditionalData() {
+        if additionalData == .none {
+            additionalData = .time
+        } else {
+            additionalData = .none
+        }
+    }
+
+    func switchMapScale() {
+        if mapScale == .tile256 {
+            mapScale = .tile512
+        } else {
+            mapScale = .tile256
         }
     }
 }

@@ -65,6 +65,7 @@ static bool g_needToHandleConnectionState = true;
 static uint32_t g_lastActivityTime = 0;
 static bool g_isWriteDataUpdated = false;
 static std::string g_writeData;
+static std::string g_timeText;
 
 // --------
 // Buttons
@@ -88,6 +89,7 @@ bool g_isDeepSleepRequested = false;
 #define VOLTAGE_ADC_PIN             34
 static VoltageMeasurement g_voltage(VOLTAGE_ADC_PIN, VOLTAGE_ADC_ENABLE);
 static bool g_showVoltage = false;
+static bool g_showTime = false;
 Button2 g_btn1(TTGO_RIGHT_BUTTON);
 
 // --------
@@ -100,7 +102,8 @@ enum class ECommand
     DrawLine = 3,
     DrawCircle = 4,
     FillCircle = 5,
-    FillTriangle = 6
+    FillTriangle = 6,
+    TimeText = 7
 };
 
 // --------
@@ -248,11 +251,21 @@ void setup()
     if (ENABLE_VOLTAGE_MEASUREMENT)
     {
         g_voltage.begin();
-        g_btn1.setPressedHandler([](Button2& b) {
-            g_showVoltage = true;
-        });
         g_btn1.setReleasedHandler([](Button2& b) {
-            g_showVoltage = false;
+            if (!g_showTime && !g_showVoltage)
+            {
+                g_showTime = true;
+            }
+            else if (g_showTime)
+            {
+                g_showTime = false;
+                g_showVoltage = true;
+            }
+            else
+            {
+                g_showTime = false;
+                g_showVoltage = false;
+            }
         });
     }
 
@@ -468,7 +481,50 @@ void loop()
                         }
                         else
                         {
-                            PrintError("DrawLine insufficient bytes", currentData, index);
+                            PrintError("FillTriangle insufficient bytes", currentData, index);
+                            break;
+                        }
+                    }
+                    else if (cmd == ECommand::TimeText)
+                    {
+                        const int OffsetColor = 1;
+                        const int OffsetText = 3;
+                        const int MinimumSize = 4;
+                        if (remainingSize >= MinimumSize)
+                        {
+                            const char* text = (const char*)bytes + OffsetText;
+                            int textLength = 0;
+                            for (; textLength < remainingSize; ++textLength)
+                            {
+                                if (text[textLength] == 0)
+                                    break;
+                            }
+                            
+                            if (textLength < remainingSize)
+                            {
+                                index += MinimumSize + textLength;
+                                g_timeText = std::string(text);
+                                if (g_showTime)
+                                {
+                                    const uint16_t color = *(reinterpret_cast<const uint16_t*>(bytes + OffsetColor));
+                                    const int16_t textHeight = 20;
+                                    const int16_t yOffset = CANVAS_HEIGHT - textHeight;
+//                                    g_pGfx->fillRect(0, yOffset, CANVAS_WIDTH, textHeight, COLOR_BLACK);
+                                    g_pGfx->setCursor(0, yOffset);
+                                    g_pGfx->setTextColor(color);
+                                    g_pGfx->setTextSize(2);
+                                    g_pGfx->println(text);
+                                }
+                            }
+                            else
+                            {
+                                PrintError("TimeText not null-terminated string", currentData, index);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            PrintError("TimeText insufficient bytes", currentData, index);
                             break;
                         }
                     }

@@ -158,6 +158,14 @@ extension ViewController: SettingsDelegate {
             self?.scheduleBikeRedraw()
         }
     }
+
+    func mapLookDidChange() {
+        setupTileSize()
+        mapView.removeOverlay(tileOverlay)
+        mapView.addOverlay(tileOverlay, level: .aboveLabels)
+        mapView.removeOverlay(currentLine)
+        mapView.addOverlay(currentLine)
+    }
 }
 
 // MARK: - private methods
@@ -165,9 +173,19 @@ private extension ViewController {
     func setupTileRenderer() {
         let overlay = MyTileOverlay(urlTemplate: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png")
         overlay.canReplaceMapContent = true
-        overlay.tileSize = CGSize(width: 512, height: 512)
         tileOverlay = overlay
+        setupTileSize()
         mapView.addOverlay(overlay, level: .aboveLabels)
+    }
+
+    func setupTileSize() {
+        let mapScale = Settings.instance?.mapScale ?? Settings.defaultMapScale
+        switch mapScale {
+        case .tile256:
+            tileOverlay.tileSize = CGSize(width: 256, height: 256)
+        case .tile512:
+            tileOverlay.tileSize = CGSize(width: 512, height: 512)
+        }
     }
 
     func reloadCurrentLine() {
@@ -550,6 +568,12 @@ extension ViewController {
             bikeAccessory.drawLine(from: from, to: to, color: color.positionIndicator, width: line.width)
         }
 //        bikeAccessory.drawCircle(center: bikeCenter, radius: UInt8(center.radius), color: color.positionIndicator)
+        if Settings.instance?.additionalData == .time {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm:ss"
+            let timeText = formatter.string(from: Date())
+            bikeAccessory.addTimeText(timeText, color: color.regularText)
+        }
         bikeAccessory.showCurrentFrame()
     }
 }

@@ -14,6 +14,7 @@ struct BikeColorScheme {
     let recentPoints: BikeColor
     let accuracyCircle: BikeColor
     let lineToClosestPoint: BikeColor
+    let regularText: BikeColor
 
     init(_ type: ColorScheme) {
         switch type {
@@ -24,6 +25,7 @@ struct BikeColorScheme {
             recentPoints = BikeColor(r: 0, g: 255, b: 0)
             accuracyCircle = BikeColor(r: 70, g: 70, b: 70)
             lineToClosestPoint = BikeColor(r: 100, g: 100, b: 100)
+            regularText = positionIndicator
         case .light:
             background = BikeColor(r: 255, g: 255, b: 255)
             route = BikeColor(r: 60, g: 0, b: 160)
@@ -31,6 +33,7 @@ struct BikeColorScheme {
             recentPoints = BikeColor(r: 0, g: 255, b: 0)
             accuracyCircle = BikeColor(r: 150, g: 150, b: 150)
             lineToClosestPoint = BikeColor(r: 100, g: 100, b: 100)
+            regularText = BikeColor(r: 0, g: 0, b: 0)
         }
     }
 }
