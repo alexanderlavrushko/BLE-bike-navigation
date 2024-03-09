@@ -1,9 +1,10 @@
 # Bluetooth Low Energy Bike Navigation
 The application shows a GPS polyline on an external display, to help bikers follow the planned route without stops.
 
-Prototype | ESP32
------ | ---------------
-![ESP32 prototype image-1](/images/IMG-BikeNavi-prototype1-display.jpg) | ![ESP32 prototype image-2](/images/IMG-BikeNavi-prototype1-ESP32.jpg)
+images | images | images
+----- | --------------- | -----
+![ESP32 TTGO T-Display](/images/IMG-BikeNavi-TTGO-T-Display.jpg) | ![Uwatch3 prototype image-1](/images/IMG-TrailNavi-watch1.jpg) | ![Uwatch3 prototype image-2](/images/IMG-TrailNavi-watch2.jpg)
+![Uwatch3 prototype image-3](/images/IMG-TrailNavi-watch3.jpg) | ![ESP32 prototype image-1](/images/IMG-BikeNavi-prototype1-display.jpg) | ![ESP32 prototype image-2](/images/IMG-BikeNavi-prototype1-ESP32.jpg)
 
 ## How it works
 The application on the phone runs in background, tracks user location, filters the part or route located nearby, converts it to graphical lines and sends to ESP32 using Bluetooth Low Energy:
@@ -11,6 +12,8 @@ The application on the phone runs in background, tracks user location, filters t
 * ESP32 acts as BLE Peripheral
 
 Application uses Apple MapKit with OpenStreetMap tiles (only iOS is supported so far).
+
+Note: there is also a prototype for UMIDIGI Uwatch3, but it requires disassembling and reprogramming, and it's difficult.
 
 ## How to use
 Route editing is manual and very basic:
