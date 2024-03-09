@@ -1,0 +1,91 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		ABC841EA267D723800FF2A5D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		ABC841EE267D725A00FF2A5D /* st7789.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = st7789.c; sourceTree = "<group>"; };
+		ABC841EF267D725A00FF2A5D /* st7789.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = st7789.h; sourceTree = "<group>"; };
+		ABC841F0267F041900FF2A5D /* ble_service_gfx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ble_service_gfx.c; sourceTree = "<group>"; };
+		ABC841F1267F041900FF2A5D /* ble_service_gfx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ble_service_gfx.h; sourceTree = "<group>"; };
+		ABC841F2267F874000FF2A5D /* sdk_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sdk_config.h; path = pca10056/s140/config/sdk_config.h; sourceTree = "<group>"; };
+		ABC841F5267F876400FF2A5D /* ble_app_trailnavi_gcc_nrf52.ld */ = {isa = PBXFileReference; lastKnownFileType = text; name = ble_app_trailnavi_gcc_nrf52.ld; path = pca10056/s140/armgcc/ble_app_trailnavi_gcc_nrf52.ld; sourceTree = "<group>"; };
+		ABC841F6267F876400FF2A5D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = pca10056/s140/armgcc/Makefile; sourceTree = "<group>"; };
+		ABC841F7267FBB3B00FF2A5D /* trail_gfx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = trail_gfx.c; sourceTree = "<group>"; };
+		ABC841F8267FBB3B00FF2A5D /* trail_gfx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = trail_gfx.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		ABC841E3267D721F00FF2A5D = {
+			isa = PBXGroup;
+			children = (
+				ABC841EA267D723800FF2A5D /* main.c */,
+				ABC841F0267F041900FF2A5D /* ble_service_gfx.c */,
+				ABC841F1267F041900FF2A5D /* ble_service_gfx.h */,
+				ABC841F7267FBB3B00FF2A5D /* trail_gfx.c */,
+				ABC841F8267FBB3B00FF2A5D /* trail_gfx.h */,
+				ABC841EE267D725A00FF2A5D /* st7789.c */,
+				ABC841EF267D725A00FF2A5D /* st7789.h */,
+				ABC841F2267F874000FF2A5D /* sdk_config.h */,
+				ABC841F5267F876400FF2A5D /* ble_app_trailnavi_gcc_nrf52.ld */,
+				ABC841F6267F876400FF2A5D /* Makefile */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		ABC841E4267D721F00FF2A5D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = ABC841E7267D721F00FF2A5D /* Build configuration list for PBXProject "Trail_Uwatch3_st7789" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ABC841E3267D721F00FF2A5D;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		ABC841E8267D721F00FF2A5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		ABC841E9267D721F00FF2A5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ABC841E7267D721F00FF2A5D /* Build configuration list for PBXProject "Trail_Uwatch3_st7789" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABC841E8267D721F00FF2A5D /* Debug */,
+				ABC841E9267D721F00FF2A5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ABC841E4267D721F00FF2A5D /* Project object */;
+}
